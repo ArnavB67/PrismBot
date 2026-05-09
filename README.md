@@ -13,4 +13,4 @@ the bot uses / commands and buttons
 
 <img width="557" height="305" alt="image" src="https://github.com/user-attachments/assets/8cbf0634-a2b1-4d0d-8cc2-cc52162cd571" />
 
-slight copilot inline suggestion assistance
+ai use: slight copilot inline suggestion assistance
