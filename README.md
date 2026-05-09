@@ -1,4 +1,4 @@
-<img width="593" height="211" alt="image" src="https://github.com/user-attachments/assets/67dfc5e8-8ded-4c22-872a-f057812e9eee" /><img width="662" height="132" alt="image" src="https://github.com/user-attachments/assets/86762360-c1bb-48a2-9eb9-e29fe1b62293" />This is a discord bot in which We can play minigames with friends.
+This is a discord bot in which We can play minigames with friends.
 the bot allows you to plac tic tac toe with a twist that only 3 X or O can stay on board at a time
 the bot uses / commands and buttons
 <img width="718" height="113" alt="image" src="https://github.com/user-attachments/assets/e5f65410-028a-4843-942f-328232cb70a4" />
