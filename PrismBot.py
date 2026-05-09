@@ -10,7 +10,20 @@ intents=discord.Intents.default()
 intents.message_content=True
 turnx=0
 turny=0
+turnsx=[]
+turnsy=[]
+Win_combinations = [
+    (0,1,2),(3,4,5),(6,7,8),   
+    (0,3,6),(1,4,7),(2,5,8),   
+    (0,4,8),(2,4,6)            
+]
 bot=commands.Bot(command_prefix="!",intents=intents)
+
+
+def check_win(turns):
+    turns_set=set(turns)
+    return any(turns_set==set(combo) for combo in Win_combinations)
+
 
 @bot.event
 async def on_ready():
@@ -58,18 +71,62 @@ async def tictactoe(interaction:discord.Interaction,target_user:discord.Member):
                 async def play(interaction):
                     global turnx
                     global turny
+
                     index=int(interaction.data["custom_id"])
                     clicked_button=buttons[index]
                     if interaction.user==player1 and turnx==turny:
-                         clicked_button.style=discord.ButtonStyle.red
-                         clicked_button.label="X"
-                         turnx+=1
-                         await interaction.response.edit_message(view=view)
+                        clicked_button.style=discord.ButtonStyle.red
+                        clicked_button.label="X"
+                        turnsx.append(index)
+                        turnx+=1
+                        if check_win(turnsx):
+                             for btn in buttons:
+                                btn.disabled=True
+                             await interaction.response.edit_message(view=view)
+                             await interaction.followup.send(content=f"{player1.mention} wins!")
+                             return
+                             
+                        if turnx>3:
+                            buttons[turnsx[0]].style=discord.ButtonStyle.gray
+                            buttons[turnsx[0]].label="O"
+                            buttons[turnsx[0]].disabled=False
+                            turnsx.pop(0)
+                            if check_win(turnsx):
+                                 for btn in buttons:
+                                    btn.disabled=True
+                                 await interaction.response.edit_message(view=view)
+                                 await interaction.followup.send(content=f"{player1.mention} wins!")
+                                 return
+                            
+                        await interaction.response.edit_message(view=view)
+                    elif interaction.user==player2 and turnx==turny:
+                         await interaction.response.send_message("wait for your turn",ephemeral=True)
                     elif interaction.user==player2 and turnx>turny:
                             clicked_button.style=discord.ButtonStyle.blurple
                             clicked_button.label="O"
+                            turnsy.append(index)
                             turny+=1
+                            if check_win(turnsy):
+                                for btn in buttons:
+                                    btn.disabled=True
+                                await interaction.response.edit_message(view=view)
+                                await interaction.followup.send(content=f"{player2.mention} wins!")
+                                return
+                            if turny>3:
+                                buttons[turnsy[0]].style=discord.ButtonStyle.gray
+                                buttons[turnsy[0]].label="O"
+                                buttons[turnsy[0]].disabled=False
+                                turnsy.pop(0)
+                                if check_win(turnsy):
+                                     for btn in buttons:
+                                        btn.disabled=True
+                                     await interaction.response.edit_message(view=view)
+                                     await interaction.followup.send(content=f"{player2.mention} wins!")
+                                     return
+                                
                             await interaction.response.edit_message(view=view)
+                    elif interaction.user==player1 and turnx>turny:
+                         await interaction.response.send_message("wait for your turn",ephemeral=True)
                 btn1.callback=play
                 btn2.callback=play
                 btn3.callback=play
