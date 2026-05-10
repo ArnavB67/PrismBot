@@ -5,7 +5,9 @@ the bot uses / commands and buttons
 Installation:
 
 1)go to https://discord.com/developers/home
+
 2)create a discord bot
+
 3)click on bot and enable all three intents
 <img width="1075" height="338" alt="image" src="https://github.com/user-attachments/assets/0cf1140b-b8ed-46ac-85a0-083e98726076" />
 4)go to oauth2,in oauth2 url generator click bot,scroll down and check administrator permission, scroll down and visit the generated url to add bot in server
