@@ -12,7 +12,9 @@ Installation:
 6)download the python file and in same folder create a file named .env, in the .env file tpye---> DISCORD_TOKEN= paste your token here
 <img width="1366" height="422" alt="image" src="https://github.com/user-attachments/assets/c525f7dc-c368-420e-945f-5c49a6e5e9bd" />
 replace the word token with your token and save it
+
 7)open terminal in the folder and download the modules required by "pip install discord" and "pip install python-dotenv"
+
 8)run the python file and bot will come online
 
 <img width="718" height="113" alt="image" src="https://github.com/user-attachments/assets/e5f65410-028a-4843-942f-328232cb70a4" />
