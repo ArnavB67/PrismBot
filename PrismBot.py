@@ -37,7 +37,7 @@ async def hello(interaction:discord.Interaction):
     username=interaction.user.mention
     await interaction.response.send_message(f"hello there, {username}")
 
-@bot.tree.command(name="tictactoe",description="play tic tac toe")
+@bot.tree.command(name="tictactoe",description="Tic Tac Toe but modified rules At a Time Only 3 of either X or O can stay in the game")
 async def tictactoe(interaction:discord.Interaction,target_user:discord.Member):
     player1=interaction.user
     player2=target_user
@@ -46,15 +46,20 @@ async def tictactoe(interaction:discord.Interaction,target_user:discord.Member):
     button =ui.Button(label="Accept",style=discord.ButtonStyle.gray,emoji="✔")
     async def accepted(interaction):
         if interaction.user==target_user:
-                btn1=ui.Button(label="O",style=discord.ButtonStyle.gray,row=0,custom_id='0')
-                btn2=ui.Button(label="O",style=discord.ButtonStyle.gray,row=0,custom_id='1')
-                btn3=ui.Button(label="O",style=discord.ButtonStyle.gray,row=0,custom_id='2')
-                btn4=ui.Button(label="O",style=discord.ButtonStyle.gray,row=1,custom_id='3')
-                btn5=ui.Button(label="O",style=discord.ButtonStyle.gray,row=1,custom_id='4')
-                btn6=ui.Button(label="O",style=discord.ButtonStyle.gray,row=1,custom_id='5')
-                btn7=ui.Button(label="O",style=discord.ButtonStyle.gray,row=2,custom_id='6')
-                btn8=ui.Button(label="O",style=discord.ButtonStyle.gray,row=2,custom_id='7')
-                btn9=ui.Button(label="O",style=discord.ButtonStyle.gray,row=2,custom_id='8')
+                global turnx, turny, turnsx, turnsy
+                turnx = 0
+                turny = 0
+                turnsx.clear()
+                turnsy.clear()
+                btn1=ui.Button(label="ㅤ",style=discord.ButtonStyle.gray,row=0,custom_id='0')
+                btn2=ui.Button(label="ㅤ",style=discord.ButtonStyle.gray,row=0,custom_id='1')
+                btn3=ui.Button(label="ㅤ",style=discord.ButtonStyle.gray,row=0,custom_id='2')
+                btn4=ui.Button(label="ㅤ",style=discord.ButtonStyle.gray,row=1,custom_id='3')
+                btn5=ui.Button(label="ㅤ",style=discord.ButtonStyle.gray,row=1,custom_id='4')
+                btn6=ui.Button(label="ㅤ",style=discord.ButtonStyle.gray,row=1,custom_id='5')
+                btn7=ui.Button(label="ㅤ",style=discord.ButtonStyle.gray,row=2,custom_id='6')
+                btn8=ui.Button(label="ㅤ",style=discord.ButtonStyle.gray,row=2,custom_id='7')
+                btn9=ui.Button(label="ㅤ",style=discord.ButtonStyle.gray,row=2,custom_id='8')
                 view.remove_item(button)
                 view.add_item(btn1)
                 view.add_item(btn2)
@@ -77,6 +82,7 @@ async def tictactoe(interaction:discord.Interaction,target_user:discord.Member):
                     if interaction.user==player1 and turnx==turny:
                         clicked_button.style=discord.ButtonStyle.red
                         clicked_button.label="X"
+                        clicked_button.disabled=True
                         turnsx.append(index)
                         turnx+=1
                         if check_win(turnsx):
@@ -88,7 +94,7 @@ async def tictactoe(interaction:discord.Interaction,target_user:discord.Member):
                              
                         if turnx>3:
                             buttons[turnsx[0]].style=discord.ButtonStyle.gray
-                            buttons[turnsx[0]].label="O"
+                            buttons[turnsx[0]].label="ㅤ"
                             buttons[turnsx[0]].disabled=False
                             turnsx.pop(0)
                             if check_win(turnsx):
@@ -104,6 +110,7 @@ async def tictactoe(interaction:discord.Interaction,target_user:discord.Member):
                     elif interaction.user==player2 and turnx>turny:
                             clicked_button.style=discord.ButtonStyle.blurple
                             clicked_button.label="O"
+                            clicked_button.disabled=True
                             turnsy.append(index)
                             turny+=1
                             if check_win(turnsy):
@@ -114,7 +121,7 @@ async def tictactoe(interaction:discord.Interaction,target_user:discord.Member):
                                 return
                             if turny>3:
                                 buttons[turnsy[0]].style=discord.ButtonStyle.gray
-                                buttons[turnsy[0]].label="O"
+                                buttons[turnsy[0]].label="ㅤ"
                                 buttons[turnsy[0]].disabled=False
                                 turnsy.pop(0)
                                 if check_win(turnsy):
@@ -142,7 +149,7 @@ async def tictactoe(interaction:discord.Interaction,target_user:discord.Member):
     view.add_item(button) 
     await interaction.response.send_message(f"{target_user.mention} click button to accept",view=view)
 
-     
+
 
 
 bot.run(TOKEN)
